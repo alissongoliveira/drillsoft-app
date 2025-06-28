@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginPage from "./features/Login/LoginPage";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<div className="text-2xl p-4">DrillSoft - Dashboard Inicial</div>} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </Router>
   );
