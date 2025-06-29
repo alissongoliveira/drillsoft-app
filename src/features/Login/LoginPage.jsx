@@ -10,7 +10,7 @@ const LoginPage = () => {
   const handleLogin = () => {
     // Simulação de autenticação
     if (usuario === "admin" && senha === "1234") {
-      navigate("/dashboard");
+      navigate("/home");
     } else {
       alert("Usuário ou senha inválidos!");
     }
