@@ -62,7 +62,27 @@ const mockUsuarios = [
 
 const UsuariosPage = () => {
   const navigate = useNavigate();
+
   const [modalAberto, setModalAberto] = useState(false);
+  const [modoModal, setModoModal] = useState("criar"); // ou "editar"
+  const [usuarioSelecionado, setUsuarioSelecionado] = useState(null);
+
+  const handleAbrirCriacao = () => {
+    setModoModal("criar");
+    setUsuarioSelecionado(null);
+    setModalAberto(true);
+  };
+
+  const handleAbrirEdicao = (usuario) => {
+    setModoModal("editar");
+    setUsuarioSelecionado(usuario);
+    setModalAberto(true);
+  };
+
+  const handleSalvar = (dados) => {
+    console.log("Salvar dados (simulado):", dados);
+    // Aqui futuramente atualizar o banco
+  };
 
   return (
     <div className="min-h-screen p-6 font-mono bg-white">
@@ -91,7 +111,7 @@ const UsuariosPage = () => {
           <Filter size={16} /> Filtrar
         </button>
         <button
-          onClick={() => setModalAberto(true)}
+          onClick={handleAbrirCriacao}
           className="w-[119px] h-[40px] bg-[#00C27C] text-white shadow rounded flex items-center justify-center gap-1 text-sm"
         >
           <Plus size={16} /> Novo
@@ -118,7 +138,7 @@ const UsuariosPage = () => {
             <div>{user.data}</div>
             <div>{user.status}</div>
             <div>
-              <button>
+              <button onClick={() => handleAbrirEdicao(user)}>
                 <Pencil size={16} />
               </button>
             </div>
@@ -126,10 +146,13 @@ const UsuariosPage = () => {
         ))}
       </div>
 
-      {/* Modal de cadastro */}
+      {/* Modal de criação/edição */}
       <ModalCadastroUsuario
         open={modalAberto}
         onClose={() => setModalAberto(false)}
+        modo={modoModal}
+        usuarioEdicao={usuarioSelecionado}
+        onSalvar={handleSalvar}
       />
     </div>
   );
