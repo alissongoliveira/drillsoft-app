@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import LoginPage from "./features/Login/LoginPage";
 import HomePage from "./features/Home/HomePage";
+import UsuariosPage from "./features/Usuarios/UsuariosPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         {/* Tela de login */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/usuarios" element={<UsuariosPage />} />
       </Routes>
     </Router>
   );

@@ -8,9 +8,11 @@ import {
   LogOut,
   Menu as MenuIcon,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -39,7 +41,14 @@ const HomePage = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <ul className="divide-y text-sm">
-              <MenuItem icon={<User size={16} />} label="Usuários" />
+              <MenuItem
+                icon={<User size={16} />}
+                label="Usuários"
+                onClick={() => {
+                  navigate("/usuarios");
+                  toggleMenu();
+                }}
+              />
               <MenuItem icon={<Truck size={16} />} label="Balança" />
               <MenuItem icon={<Car size={16} />} label="Portaria" />
               <MenuItem icon={<Users size={16} />} label="Cadastros" />
@@ -47,9 +56,8 @@ const HomePage = () => {
               <MenuItem icon={<LogOut size={16} />} label="Sair" />
             </ul>
           </div>
-          {/* Fundo escuro fora do menu
+          {/* Fundo escurecido ao lado do menu */}
           <div className="flex-1 bg-black bg-opacity-30" />
-          */}
         </div>
       )}
 
@@ -65,8 +73,11 @@ const HomePage = () => {
   );
 };
 
-const MenuItem = ({ icon, label }) => (
-  <li className="flex items-center space-x-2 px-4 py-3 hover:bg-gray-100 cursor-pointer">
+const MenuItem = ({ icon, label, onClick }) => (
+  <li
+    className="flex items-center space-x-2 px-4 py-3 hover:bg-gray-100 cursor-pointer"
+    onClick={onClick}
+  >
     <span>{icon}</span>
     <span>{label}</span>
   </li>
