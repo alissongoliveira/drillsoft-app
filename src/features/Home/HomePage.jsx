@@ -49,19 +49,26 @@ const HomePage = () => {
                   toggleMenu();
                 }}
               />
-              <MenuItem icon={<Truck size={16} />} label="Balança" />
+              <MenuItem
+                icon={<Truck size={16} />}
+                label="Balança"
+                onClick={() => {
+                  navigate("/balanca");
+                  toggleMenu();
+                }}
+              />
               <MenuItem icon={<Car size={16} />} label="Portaria" />
               <MenuItem icon={<Users size={16} />} label="Cadastros" />
               <MenuItem icon={<Info size={16} />} label="Sobre" />
               <MenuItem icon={<LogOut size={16} />} label="Sair" />
             </ul>
           </div>
-          {/* Fundo escurecido ao lado do menu */}
+          {/* Fundo escurecido fora do menu */}
           <div className="flex-1 bg-black bg-opacity-30" />
         </div>
       )}
 
-      {/* Conteúdo central */}
+      {/* Conteúdo central (logo) */}
       <main className="h-[calc(100vh-48px)] flex items-center justify-center">
         <img
           src="/logo.png"

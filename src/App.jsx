@@ -7,6 +7,7 @@ import {
 import LoginPage from "./features/Login/LoginPage";
 import HomePage from "./features/Home/HomePage";
 import UsuariosPage from "./features/Usuarios/UsuariosPage";
+import BalancaPage from "./features/Balanca/BalancaPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/usuarios" element={<UsuariosPage />} />
+        <Route path="/balanca" element={<BalancaPage />} />
       </Routes>
     </Router>
   );
