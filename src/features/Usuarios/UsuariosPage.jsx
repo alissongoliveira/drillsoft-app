@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Printer, Filter, Plus, ArrowLeft, Pencil } from "lucide-react";
+import ModalCadastroUsuario from "../../components/modals/ModalCadastroUsuario";
 
 const mockUsuarios = [
   {
@@ -61,6 +62,7 @@ const mockUsuarios = [
 
 const UsuariosPage = () => {
   const navigate = useNavigate();
+  const [modalAberto, setModalAberto] = useState(false);
 
   return (
     <div className="min-h-screen p-6 font-mono bg-white">
@@ -88,7 +90,10 @@ const UsuariosPage = () => {
         <button className="w-[119px] h-[40px] bg-white shadow border border-gray-300 rounded flex items-center justify-center gap-1 text-sm">
           <Filter size={16} /> Filtrar
         </button>
-        <button className="w-[119px] h-[40px] bg-[#00C27C] text-white shadow rounded flex items-center justify-center gap-1 text-sm">
+        <button
+          onClick={() => setModalAberto(true)}
+          className="w-[119px] h-[40px] bg-[#00C27C] text-white shadow rounded flex items-center justify-center gap-1 text-sm"
+        >
           <Plus size={16} /> Novo
         </button>
       </div>
@@ -120,6 +125,12 @@ const UsuariosPage = () => {
           </div>
         ))}
       </div>
+
+      {/* Modal de cadastro */}
+      <ModalCadastroUsuario
+        open={modalAberto}
+        onClose={() => setModalAberto(false)}
+      />
     </div>
   );
 };
