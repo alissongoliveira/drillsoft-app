@@ -1,27 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  User,
+  Truck,
+  Car,
+  Users,
+  Info,
+  LogOut,
+  Menu as MenuIcon,
+} from "lucide-react";
 
 const HomePage = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+
   return (
-    <div className="min-h-screen bg-white font-mono">
-      {/* Barra superior fixa */}
+    <div className="min-h-screen bg-white font-mono relative">
+      {/* Barra superior */}
       <header className="w-full h-12 bg-[#D9D9D9] flex items-center px-4 shadow">
         <div className="flex items-center space-x-2">
-          {/* Ícone do menu */}
-          <button className="w-[25px] h-[25px]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-full h-full"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
+          {/* Ícone de menu */}
+          <button onClick={toggleMenu} className="w-[25px] h-[25px]">
+            <MenuIcon className="w-full h-full" />
           </button>
 
           {/* Avatar */}
@@ -31,7 +31,29 @@ const HomePage = () => {
         </div>
       </header>
 
-      {/* Área útil abaixo da barra de topo */}
+      {/* Menu lateral */}
+      {isOpen && (
+        <div className="fixed inset-0 z-40 flex" onClick={toggleMenu}>
+          <div
+            className="w-[200px] h-full bg-white border-r shadow z-50"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ul className="divide-y text-sm">
+              <MenuItem icon={<User size={16} />} label="Usuários" />
+              <MenuItem icon={<Truck size={16} />} label="Balança" />
+              <MenuItem icon={<Car size={16} />} label="Portaria" />
+              <MenuItem icon={<Users size={16} />} label="Cadastros" />
+              <MenuItem icon={<Info size={16} />} label="Sobre" />
+              <MenuItem icon={<LogOut size={16} />} label="Sair" />
+            </ul>
+          </div>
+          {/* Fundo escuro fora do menu
+          <div className="flex-1 bg-black bg-opacity-30" />
+          */}
+        </div>
+      )}
+
+      {/* Conteúdo central */}
       <main className="h-[calc(100vh-48px)] flex items-center justify-center">
         <img
           src="/logo.png"
@@ -42,5 +64,12 @@ const HomePage = () => {
     </div>
   );
 };
+
+const MenuItem = ({ icon, label }) => (
+  <li className="flex items-center space-x-2 px-4 py-3 hover:bg-gray-100 cursor-pointer">
+    <span>{icon}</span>
+    <span>{label}</span>
+  </li>
+);
 
 export default HomePage;
