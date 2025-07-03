@@ -2,22 +2,25 @@ import { useState } from "react";
 import { Settings, Eye, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import ModalSolicitacaoComplemento from "../../components/modals/ModalSolicitacaoComplemento";
+import ModalEditarBalanca from "../../components/modals/ModalEditarBalanca";
 
 export default function BalancaPage() {
   const [statusB1, setStatusB1] = useState(true);
   const [statusB2, setStatusB2] = useState(false);
-  const [modalAberto, setModalAberto] = useState(false);
+  const [showModalSolicitacao, setShowModalSolicitacao] = useState(false);
   const [balancaSelecionada, setBalancaSelecionada] = useState(null);
+  const [showModalEditar, setShowModalEditar] = useState(false);
+
   const navigate = useNavigate();
 
-  const abrirModal = (balanca) => {
+  const handleAbrirSolicitacao = (balanca) => {
     setBalancaSelecionada(balanca);
-    setModalAberto(true);
+    setShowModalSolicitacao(true);
   };
 
-  const fecharModal = () => {
-    setModalAberto(false);
-    setBalancaSelecionada(null);
+  const handleAbrirEditar = (balanca) => {
+    setBalancaSelecionada(balanca);
+    setShowModalEditar(true);
   };
 
   return (
@@ -67,7 +70,10 @@ export default function BalancaPage() {
               />
               {statusB1 ? "Online" : "Offline"}
             </button>
-            <Settings className="text-gray-600" />
+            <Settings
+              className="text-gray-600 cursor-pointer"
+              onClick={() => handleAbrirEditar("BALANÇA 01")}
+            />
           </div>
 
           {/* Nome e Peso */}
@@ -80,8 +86,8 @@ export default function BalancaPage() {
 
           {/* Botão */}
           <button
+            onClick={() => handleAbrirSolicitacao("BALANÇA 01")}
             className="w-[223px] h-[30px] mt-4 bg-white rounded shadow text-sm"
-            onClick={() => abrirModal("BALANÇA 01")}
           >
             Solicitar Complemento
           </button>
@@ -106,7 +112,10 @@ export default function BalancaPage() {
               />
               {statusB2 ? "Online" : "Offline"}
             </button>
-            <Settings className="text-gray-600" />
+            <Settings
+              className="text-gray-600 cursor-pointer"
+              onClick={() => handleAbrirEditar("BALANÇA 02")}
+            />
           </div>
 
           {/* Nome e Peso */}
@@ -117,19 +126,28 @@ export default function BalancaPage() {
 
           {/* Botão */}
           <button
+            onClick={() => handleAbrirSolicitacao("BALANÇA 02")}
             className="w-[223px] h-[30px] mt-4 bg-white rounded shadow text-sm"
-            onClick={() => abrirModal("BALANÇA 02")}
           >
             Solicitar Complemento
           </button>
         </div>
       </div>
 
-      {/* Modal de Solicitação de Complemento */}
-      {modalAberto && (
+      {/* Modal Solicitação de Complemento */}
+      {showModalSolicitacao && (
         <ModalSolicitacaoComplemento
           balanca={balancaSelecionada}
-          onClose={fecharModal}
+          onClose={() => setShowModalSolicitacao(false)}
+        />
+      )}
+
+      {/* Modal Editar Balança */}
+      {showModalEditar && (
+        <ModalEditarBalanca
+          balancaNome={balancaSelecionada}
+          isOpen={showModalEditar}
+          onClose={() => setShowModalEditar(false)}
         />
       )}
     </div>
