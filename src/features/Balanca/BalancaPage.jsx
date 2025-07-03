@@ -1,11 +1,24 @@
 import { useState } from "react";
 import { Settings, Eye, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import ModalSolicitacaoComplemento from "../../components/modals/ModalSolicitacaoComplemento";
 
 export default function BalancaPage() {
   const [statusB1, setStatusB1] = useState(true);
   const [statusB2, setStatusB2] = useState(false);
+  const [modalAberto, setModalAberto] = useState(false);
+  const [balancaSelecionada, setBalancaSelecionada] = useState(null);
   const navigate = useNavigate();
+
+  const abrirModal = (balanca) => {
+    setBalancaSelecionada(balanca);
+    setModalAberto(true);
+  };
+
+  const fecharModal = () => {
+    setModalAberto(false);
+    setBalancaSelecionada(null);
+  };
 
   return (
     <div className="p-6 font-mono min-h-screen">
@@ -66,7 +79,10 @@ export default function BalancaPage() {
           </div>
 
           {/* Botão */}
-          <button className="w-[223px] h-[30px] mt-4 bg-white rounded shadow text-sm">
+          <button
+            className="w-[223px] h-[30px] mt-4 bg-white rounded shadow text-sm"
+            onClick={() => abrirModal("BALANÇA 01")}
+          >
             Solicitar Complemento
           </button>
         </div>
@@ -100,11 +116,22 @@ export default function BalancaPage() {
           </div>
 
           {/* Botão */}
-          <button className="w-[223px] h-[30px] mt-4 bg-white rounded shadow text-sm">
+          <button
+            className="w-[223px] h-[30px] mt-4 bg-white rounded shadow text-sm"
+            onClick={() => abrirModal("BALANÇA 02")}
+          >
             Solicitar Complemento
           </button>
         </div>
       </div>
+
+      {/* Modal de Solicitação de Complemento */}
+      {modalAberto && (
+        <ModalSolicitacaoComplemento
+          balanca={balancaSelecionada}
+          onClose={fecharModal}
+        />
+      )}
     </div>
   );
 }
